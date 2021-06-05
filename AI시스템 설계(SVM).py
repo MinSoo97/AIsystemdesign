@@ -30,11 +30,12 @@ from sklearn.svm import SVC
         
         
 # print(len(data))
-
+# 이미지 데이터 저장하기
 # pick_in = open('data1.pickle','wb')
 # pickle.dump(data, pick_in)
 # pick_in.close()
 
+#이미지 데이터 읽기
 pick_in = open('data1.pickle','rb')
 data = pickle.load(pick_in)
 pick_in.close()
@@ -51,3 +52,8 @@ xtrain, xtest, ytrain,ytest = train_test_split(features,labels, train_size=0.6)
 
 model = SVC(C=1,kernel='poly', gamma = 0.001)
 model.fit(xtrain,ytrain)
+
+#모델 저장하기
+pick = open('model.sav','wb')
+pickle.dump(model,pick)
+pick.close()
