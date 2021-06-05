@@ -35,7 +35,7 @@ from sklearn.svm import SVC
 # pickle.dump(data, pick_in)
 # pick_in.close()
 
-#이미지 데이터 읽기
+#저장한 이미지 데이터 읽어오기
 pick_in = open('data1.pickle','rb')
 data = pickle.load(pick_in)
 pick_in.close()
@@ -54,6 +54,26 @@ model = SVC(C=1,kernel='poly', gamma = 0.001)
 model.fit(xtrain,ytrain)
 
 #모델 저장하기
-pick = open('model.sav','wb')
-pickle.dump(model,pick)
-pick.close()
+# pick = open('model.sav','wb')
+# pickle.dump(model,pick)
+# pick.close()
+
+#저장한 모델 읽어오기
+# pick = open('model.sav','rb')
+# model = pickle.load(pick)
+# #pickle.dump(model,pick)
+# pick.close()
+
+prediction = model.predict(xtest)
+accuracy = model.score(xtest, ytest)
+
+categories = ['chicken', 'gimbab', 'kimchi', 'mandu', 'ramen']
+
+
+print('Accuracy', accuracy)
+
+print('Prediction is: ', categories[prediction[0]])
+
+myfood = xtest[0].reshape(50,50)
+plt.imshow(myfood,cmap='gray')
+plt.show()
