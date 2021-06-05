@@ -5,7 +5,7 @@ import matplotlib.pyplot as plt
 import pickle
 import random
 from sklearn.model_selection import train_test_split
-from sklearn.svm import SVC
+from sklearn.neural_network import MLPClassifier
 
 # dir = 'C:\\Users\\MingSoo\\Pictures\\kfood\\AISystem'
 
@@ -48,9 +48,13 @@ for feature , label in data:
     features.append(feature)
     labels.append(label)
     
-xtrain, xtest, ytrain,ytest = train_test_split(features,labels, train_size=0.7)
+xtrain, xtest, ytrain,ytest = train_test_split(features,labels, train_size=0.6)
 
-model = SVC(gamma = 0.001)
+model = MLPClassifier(hidden_layer_sizes=(100),
+                learning_rate_init = 0.001,
+                batch_size=8,
+                solver='adam',
+                verbose=True)
 model.fit(xtrain,ytrain)
 
 #모델 저장하기
@@ -70,7 +74,7 @@ accuracy = model.score(xtest, ytest)
 categories = ['chicken', 'gimbab', 'kimchi', 'mandu', 'ramen']
 
 
-print('Accuracy', accuracy)
+print('Accuracy', accuracy*100 ,'%')
 
 print('Prediction is: ', categories[prediction[0]])
 
