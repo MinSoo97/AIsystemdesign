@@ -48,10 +48,10 @@ for feature , label in data:
     features.append(feature)
     labels.append(label)
     
-xtrain, xtest, ytrain,ytest = train_test_split(features,labels, train_size=0.7)
+xtrain, xtest, ytrain,ytest = train_test_split(features,labels, train_size=0.8)
 
-model = SVC(gamma = 0.001)
-model.fit(xtrain,ytrain)
+svmodel = SVC(gamma = 0.001, C=1, kernel='poly')
+svmodel.fit(xtrain,ytrain)
 
 #모델 저장하기
 # pick = open('model.sav','wb')
@@ -64,8 +64,8 @@ model.fit(xtrain,ytrain)
 # #pickle.dump(model,pick)
 # pick.close()
 
-prediction = model.predict(xtest)
-accuracy = model.score(xtest, ytest)
+prediction = svmodel.predict(xtest)
+accuracy = svmodel.score(xtest, ytest)
 
 categories = ['chicken', 'gimbab', 'kimchi', 'mandu', 'ramen']
 
