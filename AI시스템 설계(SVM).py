@@ -50,7 +50,7 @@ for feature , label in data:
     
 xtrain, xtest, ytrain,ytest = train_test_split(features,labels, train_size=0.8)
 
-svmodel = SVC(gamma = 0.001, C=1, kernel='poly')
+svmodel = SVC(gamma = 0.001, C=10, kernel='poly')
 svmodel.fit(xtrain,ytrain)
 
 #모델 저장하기
@@ -70,10 +70,26 @@ accuracy = svmodel.score(xtest, ytest)
 categories = ['chicken', 'gimbab', 'kimchi', 'mandu', 'ramen']
 
 
-print('Accuracy', accuracy)
+print('Accuracy', int(accuracy*100),'%')
 
-print('Prediction is: ', categories[prediction[0]])
+print('Prediction: ', categories[prediction[0]])
 
 myfood = xtest[0].reshape(50,50)
-plt.imshow(myfood,cmap='gray')
+plt.imshow(myfood, cmap='gray')
 plt.show()
+
+
+
+
+res = svmodel.predict(xtest)
+
+conf = np.zeros((5,5))
+for i in range(len(res)):
+    conf[res[i]][ytest[i]] +=1
+print(conf)
+
+correct = 0
+for i in range(3):
+    correct += conf[i][i]
+accuracy1 = correct/len(res)
+print("Accuracy is",accuracy1*100,"%")

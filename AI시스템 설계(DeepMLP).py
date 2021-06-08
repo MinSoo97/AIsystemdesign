@@ -36,10 +36,10 @@ mlp.add(Dense(units = n_hidden4, activation = 'tanh', kernel_initializer = 'rand
 mlp.add(Dense(units = n_output, activation = 'tanh', kernel_initializer = 'random_uniform', bias_initializer ='zeros'))
 
 mlp.compile(loss = 'mse', optimizer = 'sgd', metrics = ['accuracy'])
-hist = mlp.fit(X_train, y_train, batch_size = 64, epochs = 50 , validation_data = (X_test,y_test), verbose = 2)
+hist = mlp.fit(X_train, y_train, batch_size = 32, epochs = 2000 , validation_data = (X_test,y_test), verbose = 2)
 
 res = mlp.evaluate(X_test, y_test, verbose = 0)
-print("Accuracy is", res[1]*100)
+print("Accuracy is", int(res[1]*100),"%")
 
 categories = ['chicken', 'gimbab', 'kimchi', 'mandu', 'ramen']
 

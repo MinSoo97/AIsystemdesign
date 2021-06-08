@@ -48,11 +48,11 @@ for feature , label in data:
     features.append(feature)
     labels.append(label)
     
-xtrain, xtest, ytrain,ytest = train_test_split(features,labels, train_size=0.9)
+xtrain, xtest, ytrain,ytest = train_test_split(features,labels, train_size=0.8)
 
-model = MLPClassifier(hidden_layer_sizes=(100),
-                learning_rate_init = 0.001,
-                batch_size=64,
+model = MLPClassifier(hidden_layer_sizes=(256,128,128,128),
+                learning_rate_init = 0.01,
+                batch_size=32,
                 solver='adam',
                 verbose=True)
 model.fit(xtrain,ytrain)
@@ -69,13 +69,12 @@ model.fit(xtrain,ytrain)
 # pick.close()
 
 prediction = model.predict(xtest)
-print(xtest)
 accuracy = model.score(xtest, ytest)
 
 categories = ['chicken', 'gimbab', 'kimchi', 'mandu', 'ramen']
 
 
-print('Accuracy', accuracy*100 ,'%')
+print('Accuracy', int(accuracy*100) ,'%')
 
 print('Prediction is: ', categories[prediction[0]])
 
